@@ -1,0 +1,3 @@
+{
+    "mongoDbConnection" : "mongodb://831dev:831dev@ds023485.mlab.com:23485/831dev"
+}
