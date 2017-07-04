@@ -20,7 +20,7 @@ var dbError = {
 
 router.get('/', function (req, res) {  
     res.json({
-        app: 'https://amazon-wishlist-api.herokuapp.com/'
+        app: 'https://nodejsmongoapi.herokuapp.com/'
     });
 });
 
