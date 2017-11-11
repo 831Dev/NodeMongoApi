@@ -1,0 +1,86 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Items Api",
+		"_postman_id": "60dde14f-f1ab-f7b8-7fbe-1b25450ff250",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item/595b263963a5ce2d8a6f9904",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create New",
+			"request": {
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Amazon Buy\",\n  \"url\": \"http://www.amazon.com/stuff\",\n  \"purchased\": false,\n  \"price\": 343\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item/5a076bdb97fd7d0012dc6a17",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
