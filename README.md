@@ -1,12 +1,11 @@
 # REST Api using NodeJs, Express and MongoDb
 
-## Use the API hosted on Heroku - https://nodejsmongoapi.herokuapp.com/
+## Use the API hosted on Heroku - https://nodejsmongoapi-dev.herokuapp.com/
 
-- Get All Items - GET https://nodejsmongoapi.herokuapp.com/item
-- Get An Item - GET https://nodejsmongoapi.herokuapp.com/item/{id}
-- Delete An Item - DELETE https://nodejsmongoapi.herokuapp.com/item/{id}
-- Create An Item - POST 
-https://nodejsmongoapi.herokuapp.com/item
+- Get All Items - GET https://nodejsmongoapi-dev.herokuapp.com/item
+- Get An Item - GET https://nodejsmongoapi-dev.herokuapp.com/item/{id}
+- Delete An Item - DELETE https://nodejsmongoapi-dev.herokuapp.com/item/{id}
+- Create An Item - POST https://nodejsmongoapi-dev.herokuapp.com/item
 
 
 ## To run locally
