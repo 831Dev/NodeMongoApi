@@ -1,7 +1,7 @@
 {
   "name": "NodeMongoApi",
   "scripts": {
-    "postdeploy": "newman run api-tests.json"
+    "postdeploy": "npm install newman && newman run api-tests.json"
   },
   "env": {
   },
