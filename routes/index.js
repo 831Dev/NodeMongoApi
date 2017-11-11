@@ -20,7 +20,7 @@ var dbError = {
 
 router.get('/', function (req, res) {  
     res.json({
-        app: 'https://nodejsmongoapi.herokuapp.com/'
+        app: 'The Api is up!'
     });
 });
 
