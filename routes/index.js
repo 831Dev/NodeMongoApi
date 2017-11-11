@@ -20,7 +20,7 @@ var dbError = {
 
 router.get('/', function (req, res) {  
     res.json({
-        app: 'testing pr'
+        app: 'testing from codeship'
     });
 });
 
