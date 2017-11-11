@@ -1,0 +1,18 @@
+{
+  "name": "NodeMongoApi",
+  "scripts": {
+    "postdeploy": "bin/post-deploy"
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
