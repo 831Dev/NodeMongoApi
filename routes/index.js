@@ -20,7 +20,7 @@ var dbError = {
 
 router.get('/', function (req, res) {  
     res.json({
-        app: 'Build Number ' + process.env.CI_BUILD_NUMBER
+        app: 'Build Number ' + process.env.HEROKU_RELEASE_NAME
     });
 });
 
