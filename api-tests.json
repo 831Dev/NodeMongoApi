@@ -15,7 +15,19 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+							"postman.clearGlobalVariable(\"totalRecords\");",
+							"postman.clearGlobalVariable(\"firstRecord\");",
+							"postman.clearGlobalVariable(\"lastRecord\");",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Array greater than 0\"] = jsonData.length > 0;",
+							"",
+							"postman.setGlobalVariable(\"totalRecords\", jsonData.length);",
+							"postman.setGlobalVariable(\"firstRecord\", jsonData[0]._id);",
+							"postman.setGlobalVariable(\"lastRecord\", jsonData[0]._id);"
 						]
 					}
 				}
@@ -37,13 +49,20 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Check for name\"] = jsonData.name !== \"\";",
+							"tests[\"Check for url\"] = jsonData.url !== \"\";",
+							"tests[\"Check for price\"] = jsonData.price !== \"\";",
+							""
 						]
 					}
 				}
 			],
 			"request": {
-				"url": "https://nodejsmongoapi-dev.herokuapp.com/item/595b263963a5ce2d8a6f9904",
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item/{{firstRecord}}",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -53,6 +72,21 @@
 		},
 		{
 			"name": "Create New",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"postman.setGlobalVariable(\"lastRecord\", jsonData._id);"
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
 				"method": "POST",
@@ -65,8 +99,36 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"Amazon Buy\",\n  \"url\": \"http://www.amazon.com/stuff\",\n  \"purchased\": false,\n  \"price\": 343\n}"
+					"raw": "{\n  \"name\": \"Mock Item\",\n  \"url\": \"http://www.amazon.com/mock-item\",\n  \"purchased\": false,\n  \"price\": 99\n}"
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All - Check Array",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"var rows = postman.getGlobalVariable(\"totalRecords\");",
+							"tests[\"Array greater\"] = jsonData.length > rows;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -74,8 +136,36 @@
 		{
 			"name": "Delete",
 			"request": {
-				"url": "https://nodejsmongoapi-dev.herokuapp.com/item/5a076bdb97fd7d0012dc6a17",
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item/{{lastRecord}}",
 				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All - Final Check Array",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"var rows = postman.getGlobalVariable(\"totalRecords\");",
+							"tests[\"Array less than 1\"] = jsonData.length == rows;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
+				"method": "GET",
 				"header": [],
 				"body": {},
 				"description": ""
