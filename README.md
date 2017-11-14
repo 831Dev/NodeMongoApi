@@ -1,6 +1,6 @@
 # REST Api using NodeJs, Express and MongoDb
 
-## Use the API hosted on Heroku 
+## Use the API hosted on Heroku
 
 - Get All Items - GET https://nodejsmongoapi-dev.herokuapp.com/item
 - Get An Item - GET https://nodejsmongoapi-dev.herokuapp.com/item/{id}
