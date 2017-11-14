@@ -1,0 +1,175 @@
+{
+	"variables": [],
+	"info": {
+		"name": "NodeMongoApi",
+		"_postman_id": "60dde14f-f1ab-f7b8-7fbe-1b25450ff250",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.clearGlobalVariable(\"totalRecords\");",
+							"postman.clearGlobalVariable(\"firstRecord\");",
+							"postman.clearGlobalVariable(\"lastRecord\");",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Array greater than 0\"] = jsonData.length > 0;",
+							"",
+							"postman.setGlobalVariable(\"totalRecords\", jsonData.length);",
+							"postman.setGlobalVariable(\"firstRecord\", jsonData[0]._id);",
+							"postman.setGlobalVariable(\"lastRecord\", jsonData[0]._id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Check for name\"] = jsonData.name !== \"\";",
+							"tests[\"Check for url\"] = jsonData.url !== \"\";",
+							"tests[\"Check for price\"] = jsonData.price !== \"\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item/{{firstRecord}}",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create New",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"postman.setGlobalVariable(\"lastRecord\", jsonData._id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Mock Item 56\",\n  \"url\": \"http://www.ebay.com/mock-item\",\n  \"purchased\": false,\n  \"price\": 99\n}"
+				},
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All - Check Array",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"var rows = postman.getGlobalVariable(\"totalRecords\");",
+							"tests[\"Array greater\"] = jsonData.length > rows;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item/{{lastRecord}}",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All - Final Check Array",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"var rows = postman.getGlobalVariable(\"totalRecords\");",
+							"tests[\"Array less than 1\"] = jsonData.length == rows;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "https://nodejsmongoapi-dev.herokuapp.com/item",
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
